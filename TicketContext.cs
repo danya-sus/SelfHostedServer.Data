@@ -12,8 +12,8 @@ namespace SelfHostedServer.Data
         {
             modelBuilder.Entity<Segment>(entity => 
             {
-                entity.HasKey(it => new { it.ID, it.Ticket_number});
-                entity.HasKey(ts => new { ts.Ticket_number, ts.Serial_number });
+                entity.HasKey(it => new { it.ID, it.TicketNumber});
+                entity.HasKey(ts => new { ts.TicketNumber, ts.SerialNumber });
             });
         }
     }

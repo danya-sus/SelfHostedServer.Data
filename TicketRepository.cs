@@ -16,21 +16,21 @@ namespace SelfHostedServer.Data
         public async Task SaleAsync(Ticket ticket)
         {
             var str = $"UPDATE \"Segments\" " +
-                      $"SET \"Operation_type\" = \'{ticket.Operation_type}\', " +
-                      $"\"Operation_time\" = \'{ticket.Operation_time}\', " +
-                      $"\"Operation_place\" = \'{ticket.Operation_place}\', " +
+                      $"SET \"OperationType\" = \'{ticket.OperationType}\', " +
+                      $"\"OperationTime\" = \'{ticket.OperationTime}\', " +
+                      $"\"OperationPlace\" = \'{ticket.OperationPlace}\', " +
                       $"\"Name\" = \'{ticket.Passenger.Name}\', " +
                       $"\"Surname\" = \'{ticket.Passenger.Surname}\', " +
                       $"\"Patronymic\" = \'{ticket.Passenger.Name}\', " +
-                      $"\"Doc_type\" = \'{ticket.Passenger.Doc_type}\', " +
-                      $"\"Doc_number\" = {ticket.Passenger.Doc_number}, " +
+                      $"\"DocType\" = \'{ticket.Passenger.DocType}\', " +
+                      $"\"DocNumber\" = {ticket.Passenger.DocNumber}, " +
                       $"\"Birthdate\" = \'{ticket.Passenger.Birthdate}\', " +
                       $"\"Gender\" = \'{ticket.Passenger.Gender}\', " +
-                      $"\"Passenger_type\" = \'{ticket.Passenger.Passenger_type}\', " +
-                      $"\"Ticket_number\" = {ticket.Passenger.Ticket_number}, " +
-                      $"\"Ticket_type\" = {ticket.Passenger.Ticket_type}, " +
+                      $"\"PassengerType\" = \'{ticket.Passenger.PassengerType}\', " +
+                      $"\"TicketNumber\" = {ticket.Passenger.TicketNumber}, " +
+                      $"\"TicketType\" = {ticket.Passenger.TicketType}, " +
                       $"\"Refund\" = false " +
-                      $"WHERE \"Ticket_number\" = \'{ticket.Passenger.Ticket_number}\' " +
+                      $"WHERE \"TicketNumber\" = \'{ticket.Passenger.TicketNumber}\' " +
                       $"AND \"Refund\" = true";
 
 
@@ -45,9 +45,9 @@ namespace SelfHostedServer.Data
             var num = 1;
             foreach (var item in ticket.Routes)
             {
-                var segment = new Segment(ticket.Operation_type,
-                                          ticket.Operation_time,
-                                          ticket.Operation_place,
+                var segment = new Segment(ticket.OperationType,
+                                          ticket.OperationTime,
+                                          ticket.OperationPlace,
                                           ticket.Passenger,
                                           item, num);
 
@@ -62,8 +62,8 @@ namespace SelfHostedServer.Data
         {
             var result = await Context.Database.ExecuteSqlRawAsync("UPDATE \"Segments\" " +
                                                                    "SET \"Refund\" = true " +
-                                                                   "WHERE \"Ticket_number\" = {0} " +
-                                                                   "AND \"Refund\" = false", refund.Ticket_number);
+                                                                   "WHERE \"TicketNumber\" = {0} " +
+                                                                   "AND \"Refund\" = false", refund.TicketNumber);
 
             if (result > 0)
             {
